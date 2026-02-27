@@ -58,7 +58,7 @@ export default function AdminPage() {
     const ext = file.name.split(".").pop();
     const path = `posters/${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from("files").upload(path, file);
-    if (error) { toast.error("Upload failed"); return null; }
+    if (error) { toast.error({title: "Upload failed", description: JSON.stringify(error)}); return null; }
     const { data } = supabase.storage.from("files").getPublicUrl(path);
     return data.publicUrl;
   };
